@@ -1,4 +1,4 @@
-package com.javaex.posdao;
+package com.javaex.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.posvo.CategorySalesVO;
+import com.javaex.vo.CategorySalesVO;
 
 public class CategorySalesDAO {
 
@@ -15,15 +15,19 @@ public class CategorySalesDAO {
         List<CategorySalesVO> list = new ArrayList<>();
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_db", "root", "1234");
-            String sql = "SELECT c.category_name, SUM(o.quantity) AS quantity, SUM(o.quantity * m.price) AS sales " +
-                         "FROM orders o " +
-                         "JOIN menu m ON o.menu_id = m.menu_id " +
-                         "JOIN category c ON m.category_id = c.category_id " +
-                         "GROUP BY c.category_name " +
-                         "ORDER BY sales DESC";
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_db", "web", "web");
+            
+            String 	query = "";
+		            query += "SELECT c.category_name, ";
+		            query += "SUM(o.quantity) AS quantity, ";
+		            query += "SUM(o.quantity * m.menu_price) AS sales ";
+		            query += "FROM orders o ";
+		            query += "JOIN menu m ON o.menu_id = m.menu_id ";
+		            query += "JOIN category c ON m.category_id = c.category_id ";
+		            query += "GROUP BY c.category_name ";
+		            query += "ORDER BY sales DESC";
 
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+            PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -47,12 +51,14 @@ public class CategorySalesDAO {
         CategorySalesVO totalVO = new CategorySalesVO();
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_db", "root", "1234");
-            String sql = "SELECT SUM(o.quantity) AS total_quantity, SUM(o.quantity * m.price) AS total_sales " +
-                         "FROM orders o " +
-                         "JOIN menu m ON o.menu_id = m.menu_id";
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_db", "web", "web");
+            String 	query = "";
+		            query += "SELECT SUM(o.quantity) AS total_quantity, ";
+		            query += "SUM(o.quantity * m.menu_price) AS total_sales ";
+		            query += "FROM orders o ";
+		            query += "JOIN menu m ON o.menu_id = m.menu_id";
 
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+            PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {

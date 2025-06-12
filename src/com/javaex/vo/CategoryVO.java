@@ -1,4 +1,4 @@
-package com.javaex.posvo;
+package com.javaex.vo;
 
 public class CategoryVO {
 
@@ -28,7 +28,7 @@ public class CategoryVO {
         this.emoji = emoji;
     }
 
-    // 메소드gs
+    // Getter / Setter
     public int getCategoryId() {
         return categoryId;
     }
@@ -64,7 +64,7 @@ public class CategoryVO {
         this.regDate = regDate;
     }
 
-    // 메소드일반
+    // toString
     @Override
     public String toString() {
         return categoryId + " | " + categoryName + " | " + categoryDesc + " | " + emoji + " | " + regDate;

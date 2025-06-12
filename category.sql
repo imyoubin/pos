@@ -44,6 +44,18 @@ insert into category (category_name, emoji)values ('계절메뉴', '🍜❄️' 
 insert into category (category_name, emoji)values ('세트메뉴', '🍱🐷');
 insert into category (category_name, emoji)values ('음료수', '🥤' );
 
+-- 날짜
+insert into orders values(null,1,1,'2025-06-11 12:02:25','N',1);
+insert into orders values(null,1,1,'2025-06-11 12:07:24','N',1);
+insert into orders values(null,1,2,'2025-06-11 12:07:37','N',1);
+insert into orders values(null,1,2,'2025-06-10 15:47:34','N',2);
+insert into orders values(null,2,2,'2025-06-10 15:47:34','N',2);
+insert into orders values(null,2,2,'2025-06-09 15:47:34','N',2);
+insert into orders values(null,3,2,'2025-06-09 15:47:34','N',3);
+insert into orders values(null,3,1,'2025-06-08 15:47:34','N',3);
+insert into orders values(null,5,1,'2025-06-08 15:47:34','N',3);
+insert into orders values(null,5,1,'2025-06-07 15:47:34','N',3);
+
 -- 수정
 update category
 set category_name='김밥', emoji='🇰🇷🍙'
@@ -97,17 +109,6 @@ select 	menu_id as '메뉴번호',
 from manu
 ;
 
--- 카테고리별 매출
-select *
-from orders o
-join menu m
-on o.menu_id=m.menu_id
-join category_id c
-on c.category_id=c.category_name=c,emoji
-group by c.category_id, c.category_name, c.emoji
-order by total_sales DESC;
-;
-
 select 	order_id as '주문번호',
 		table_number as '테이블번호',
         quantity as '주문수량',
@@ -115,4 +116,52 @@ select 	order_id as '주문번호',
         payment_yn as '결제여부',
         menu_id as '메뉴번호'	
 from orders
+;
+
+-- 계절메뉴
+select    ifnull(m.menu_id, ' ') as 'menu_id' 
+                  ,ifnull(m.menu_name, ' ') as 'menu_name'
+                  ,ifnull(m.menu_price, ' ') as 'menu_price' 
+                  ,c.category_name 
+                  ,c.category_id 
+         from menu m 
+            right outer join category c 
+         on m.category_id = c.category_id; 
+insert into category
+
+values(null, '계절메뉴', '하절기 동절기', '★', now());
+
+insert into category
+values(null, '찌게류', '뜨거워용', '☎', now());
+
+select date_format(o.order_time, '%Y-%m-%d %H:00:00') as order_time, 
+      count(*) as order_count, 
+      sum(m.menu_price*o.quantity) as sales 
+from orders o, menu m
+where o.menu_id = m.menu_id
+and date(o.order_time) = '2025-06-11'
+group by date_format(o.order_time, '%Y-%m-%d %H:00:00')
+order by order_time asc
+;
+ 
+-- 카테고리별 매출
+select c.category_name, 
+sum(o.quantity) as quantity, 
+sum(o.quantity * m.menu_price) as sales
+from orders o                  
+join menu m 
+on o.menu_id = m.menu_id 
+join category c 
+on m.category_id = c.category_id                       
+group by c.category_name 
+order by sales desc;                   
+                         
+
+
+-- 전체 매출 및 판매수량 합계 조회
+SELECT SUM(o.quantity) AS total_quantity, 
+SUM(o.quantity * m.menu_price) AS total_sales 
+FROM orders o
+JOIN menu m 
+ON o.menu_id = m.menu_id
 ;

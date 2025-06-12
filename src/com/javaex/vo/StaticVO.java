@@ -1,4 +1,4 @@
-package com.javaex.posvo;
+package com.javaex.vo;
 
 public class StaticVO {
 
@@ -10,7 +10,6 @@ public class StaticVO {
 	private String menuName;
 	private int menuQuantity;
 	private int menuPrice;
-	private int menuId;
 	
 	private int orderDate;
 
@@ -40,21 +39,7 @@ public class StaticVO {
 		this.menuPrice = menuPrice;
 	}
 	
-	public StaticVO(int menuId, String menuName, int menuPrice) {
-
-		this.menuId = menuId;
-		this.menuName = menuName;
-		this.menuPrice = menuPrice;
-	}
-	
-
 	// 메소드gs
-	public int getMenuId() {
-		return menuId;
-	}
-	public void setMenuId(int menuId) {
-		this.menuId = menuId;
-	}
 	public String getMenuName() {
 		return menuName;
 	}

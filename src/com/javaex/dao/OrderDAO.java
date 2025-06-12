@@ -1,4 +1,4 @@
-package com.javaex.posdao;
+package com.javaex.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.posvo.OrderVO;
+import com.javaex.vo.OrderVO;
 
 public class OrderDAO {
 
@@ -58,7 +58,7 @@ public class OrderDAO {
 	}
 
 	// 주문등록
-	public int orderInsert(int tableNumber, int quantity, int menuId ) {
+	public int orderInsert(int tableNumber, int quantity, int menuId) {
 
 		int count = -1;
 
@@ -83,6 +83,7 @@ public class OrderDAO {
 		} catch (Exception e) {
 			System.out.println("error:" + e);
 		}
+
 		// 자원정리
 		close();
 
@@ -116,6 +117,7 @@ public class OrderDAO {
 		} catch (Exception e) {
 			System.out.println("error:" + e);
 		}
+
 		// 자원정리
 		close();
 
@@ -127,7 +129,6 @@ public class OrderDAO {
 	public int orderDelete(int orderId) {
 
 		int count = -1;
-		System.out.println("삭제");
 
 		// 0. import java.sql.*;
 		// 1. JDBC 드라이버 (Oracle) 로딩
@@ -200,7 +201,7 @@ public class OrderDAO {
 				int tableNumber = rs.getInt("table_number");
 
 				// posVO 로 묶는다
-				OrderVO posVO = new OrderVO(orderId, menuName, menuPrice, quantity, totalPrice ,tableNumber);
+				OrderVO posVO = new OrderVO(orderId, menuName, menuPrice, quantity, totalPrice, tableNumber);
 
 				// 리스트에에 추가
 				posOrderList.add(posVO);
@@ -218,11 +219,11 @@ public class OrderDAO {
 	}
 
 	// 메뉴리스트
-	public List<OrderVO> menuSelect() {
+	public List<OrderVO> listSelect() {
 
 		System.out.println("메뉴");
 
-		List<OrderVO> menuList = new ArrayList<OrderVO>();
+		List<OrderVO> lList = new ArrayList<OrderVO>();
 
 		// 연결
 		connect();
@@ -255,7 +256,7 @@ public class OrderDAO {
 				OrderVO posVO = new OrderVO(menuId, menuName, menuPrice);
 
 				// 리스트에에 추가
-				menuList.add(posVO);
+				lList.add(posVO);
 
 			}
 
@@ -265,7 +266,7 @@ public class OrderDAO {
 
 		close();
 
-		return menuList;
+		return lList;
 
 	}
 

@@ -1,4 +1,4 @@
-package com.javaex.posdao;
+package com.javaex.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.posvo.MenuVO;
+import com.javaex.vo.MenuVO;
+
+
 
 public class MenuDAO {
+
+	
 	
 	// 필드
 		private Connection conn = null;
@@ -192,7 +196,7 @@ public class MenuDAO {
 			} 
 			//자원정리
 			this.close();
-			System.out.println("삭제가 완료되었습니다.");
+			System.out.println(count + "건 삭제");
 			return count;
 			
 		} //delete

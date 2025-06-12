@@ -1,4 +1,4 @@
-package com.javaex.posvo;
+package com.javaex.vo;
 
 public class CategorySalesVO {
     private String categoryName;

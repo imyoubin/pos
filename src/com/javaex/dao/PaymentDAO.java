@@ -1,4 +1,4 @@
-package com.javaex.posdao;
+package com.javaex.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.posvo.PaymentVO;
+import com.javaex.vo.PaymentVO;
 
 public class PaymentDAO {
 
@@ -16,9 +16,9 @@ public class PaymentDAO {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	private String driver = "com.mysql.cj.jdbc.Driver";
-	private String url = "jdbc:mysql://localhost:3306/pos_db";
-	private String id = "pos";
-	private String pw = "pos";
+	private String url = "jdbc:mysql://localhost:3306/web_db";
+	private String id = "web";
+	private String pw = "web";
 
 	public PaymentDAO() {
 
@@ -217,4 +217,3 @@ public class PaymentDAO {
 
 
 }
-

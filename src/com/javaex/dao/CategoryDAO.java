@@ -1,4 +1,4 @@
-package com.javaex.posdao;
+package com.javaex.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.posvo.CategoryVO;
+import com.javaex.vo.CategoryVO;
 
 public class CategoryDAO {
 
@@ -49,8 +49,11 @@ public class CategoryDAO {
         List<CategoryVO> list = new ArrayList<>();
         connect(); // DB 연결
         try {
-            String sql = "SELECT * FROM category ORDER BY category_id ASC";
-            pstmt = conn.prepareStatement(sql);
+        	String 	query = ""; 
+		        	query += "SELECT * ";
+		        	query += "FROM category ";
+		        	query += "ORDER BY category_id ASC";
+            pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -77,8 +80,8 @@ public class CategoryDAO {
         int count = -1;
         connect();
         try {
-            String sql = "INSERT INTO category (category_name, category_desc, emoji) VALUES (?, ?, ?)";
-            pstmt = conn.prepareStatement(sql);
+            String query = "INSERT INTO category (category_name, category_desc, emoji) VALUES (?, ?, ?)";
+            pstmt = conn.prepareStatement(query);
             pstmt.setString(1, name);
             pstmt.setString(2, desc);
             pstmt.setString(3, emoji);
@@ -95,8 +98,11 @@ public class CategoryDAO {
         int count = -1;
         connect();
         try {
-            String sql = "UPDATE category SET category_name = ?, category_desc = ?, emoji = ? WHERE category_id = ?";
-            pstmt = conn.prepareStatement(sql);
+            String 	query = "";
+		            query += "UPDATE category SET category_name = ?, ";
+		            query +="category_desc = ?, emoji = ?";
+		            query +=" WHERE category_id = ?";
+            pstmt = conn.prepareStatement(query);
             pstmt.setString(1, name);
             pstmt.setString(2, desc);
             pstmt.setString(3, emoji);
@@ -135,8 +141,14 @@ public class CategoryDAO {
         List<CategoryVO> list = new ArrayList<>();
         connect();
         try {
-            String sql = "SELECT category_id, category_name, category_desc, emoji, reg_date FROM category ORDER BY category_id ASC";
-            pstmt = conn.prepareStatement(sql);
+        	String 	query = "";
+		        	query += "SELECT category_id, ";
+		        	query += "category_name, category_desc, ";
+		        	query += "emoji, ";
+		        	query += "reg_date ";
+		        	query += "FROM category ";
+		        	query += "ORDER BY category_id ASC";
+            pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
