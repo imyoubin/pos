@@ -97,6 +97,17 @@ select 	menu_id as '메뉴번호',
 from manu
 ;
 
+-- 카테고리별 매출
+select *
+from orders o
+join menu m
+on o.menu_id=m.menu_id
+join category_id c
+on c.category_id=c.category_name=c,emoji
+group by c.category_id, c.category_name, c.emoji
+order by total_sales DESC;
+;
+
 select 	order_id as '주문번호',
 		table_number as '테이블번호',
         quantity as '주문수량',
