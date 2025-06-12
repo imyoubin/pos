@@ -102,14 +102,14 @@ select	category_id as '카테고리번호',
         reg_date as '등록날짜'
 from category;
 
-select 	menu_id as '메뉴번호',
+select menu_id as '메뉴번호',
 		menu_name as '메뉴명',
-        menu_price as '가격',
-        category_id as '카테고리번호'
-from manu
+		menu_price as '가격',
+		category_id as '카테고리번호'
+from menu
 ;
 
-select 	order_id as '주문번호',
+select order_id as '주문번호',
 		table_number as '테이블번호',
         quantity as '주문수량',
         order_time as '주문시간',
@@ -134,6 +134,7 @@ values(null, '계절메뉴', '하절기 동절기', '★', now());
 insert into category
 values(null, '찌게류', '뜨거워용', '☎', now());
 
+-- 일별매출
 select date_format(o.order_time, '%Y-%m-%d %H:00:00') as order_time, 
       count(*) as order_count, 
       sum(m.menu_price*o.quantity) as sales 

@@ -27,6 +27,12 @@ public class MenuVO {
 		
 	}
 		
+	
+
+	public MenuVO(int categoryId) {
+		super();
+		this.categoryId = categoryId;
+	}
 
 	
 
